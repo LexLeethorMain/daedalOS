@@ -9,7 +9,7 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     env:
-      NODE_OPTIONS: --openssl-legacy-provider   # ← this must be here
+      NODE_OPTIONS: --openssl-legacy-provider 
     permissions:
       pages: write
       id-token: write
@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 20    # ← stay on 18
+          node-version: 20  
 
       - name: Install dependencies
         run: yarn install
