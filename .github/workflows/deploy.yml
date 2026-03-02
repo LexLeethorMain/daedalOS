@@ -37,4 +37,4 @@ jobs:
           path: ./out   # we'll confirm this in a sec
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
