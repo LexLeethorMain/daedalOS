@@ -8,13 +8,19 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --openssl-legacy-provider   # ← this must be here
+    permissions:
+      pages: write
+      id-token: write
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18    # ← stay on 18
 
       - name: Install dependencies
         run: yarn install
@@ -25,8 +31,10 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out  
+          path: ./out   # we'll confirm this in a sec
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
